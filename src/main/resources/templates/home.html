@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>My Spring Home</title>
+</head>
+<body>
+    <h2>Welcome</h2>
+    <hr>
+    <p>
+        This is the default home page!!!
+    </p>
+    <hr>
+
+    <p>
+        User : <span sec:authentication="principal.username"></span>
+        <br>
+        Role(s) : <span sec:authentication="principal.authorities"></span>
+    </p>
+
+
+    <!--Add a link to point to /leaders .. this is for managers -->
+    <div sec:authorize="hasRole('MANAGER')">
+        <p>
+            <a th:href="@{/leaders}">Leadership Meeting</a>
+            (Only for Managers)
+        </p>
+    </div>
+
+    <hr>
+    <!--Add a link to point to /leaders .. this is for managers -->
+    <div sec:authorize="hasRole('ADMIN')">
+        <p>
+            <a th:href="@{/systems}">IT systems Meeting</a>
+            (Only for Admins)
+        </p>
+    </div>
+
+
+
+    <form action="" th:action="@{/logout}" method="POST">
+        <input type="submit" value="LogOut">
+    </form>
+
+</body>
+</html>
